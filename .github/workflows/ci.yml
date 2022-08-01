@@ -2,13 +2,10 @@ name: Deployment pipeline
 
 on:
   push:
-    branches:
-      - main
-      - master
+    branches: [main]
   pull_request:
-    branches:
-      - main
-      - master
+    branches: [main]
+    types: [opened, synchronize]
 
 jobs:
   deploy:
@@ -20,6 +17,10 @@ jobs:
         node: [16]
 
     steps:
+      - name: Cancel previous redundant builds 🔖
+        uses: styfle/cancel-workflow-action@0.10.0
+        with:
+          access_token: ${{ github.token }}
       - name: Checkout 🛎
         uses: actions/checkout@master
         with:
@@ -49,20 +50,21 @@ jobs:
       - name: Run linter 👀
         run: yarn lint
 
-      - name: Build project 🛠
+      - name: Build project 🗃
         run: yarn build
 
       - name: Run tests 🧪
         run: yarn test
 
-      - name: Deploy to Heroku
+      - name: Deploy to Heroku 💻
+        if: ${{ github.event_name == 'push'}}
         uses: akhileshns/heroku-deploy@v3.12.12
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: ${{secrets.HEROKU_APP}}
           heroku_email: ${{secrets.HEROKU_API_EMAIL}}
 
-      - name: 'Sending SMS Notification'
+      - name: Sending SMS Notification 💬
         uses: twilio-labs/actions-sms@v1
         with:
           fromPhoneNumber: '${{secrets.TWILIO_NUMBER}}'
