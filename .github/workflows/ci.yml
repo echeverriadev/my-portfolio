@@ -1,4 +1,4 @@
-name: ci
+name: Deployment pipeline
 
 on:
   push:
@@ -11,23 +11,24 @@ on:
       - master
 
 jobs:
-  ci:
+  deploy:
     runs-on: ${{ matrix.os }}
 
     strategy:
       matrix:
-        os: [ubuntu-latest]
-        node: [14]
+        os: [ubuntu-18.04]
+        node: [16]
 
     steps:
       - name: Checkout 🛎
         uses: actions/checkout@master
+        with:
+          fetch-depth: 0
 
       - name: Setup node env 🏗
         uses: actions/setup-node@v2.1.5
         with:
           node-version: ${{ matrix.node }}
-          check-latest: true
 
       - name: Get yarn cache directory path 🛠
         id: yarn-cache-dir-path
@@ -43,10 +44,20 @@ jobs:
             ${{ runner.os }}-yarn-
 
       - name: Install dependencies 👨🏻‍💻
-        run: yarn
+        run: yarn --no-audit --no-fund --no-optional
 
       - name: Run linter 👀
         run: yarn lint
 
+      - name: Build project 🛠
+        run: yarn build
+
       - name: Run tests 🧪
         run: yarn test
+
+      - name: Deploy to Heroku
+        uses: akhileshns/heroku-deploy@v3.12.12
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: ${{secrets.HEROKU_APP}}
+          heroku_email: ${{secrets.HEROKU_API_EMAIL}}

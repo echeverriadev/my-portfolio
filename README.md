@@ -1,3 +1,5 @@
+[![ci](https://github.com/echeverriadev/my-portfolio/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/echeverriadev/my-portfolio/actions/workflows/ci.yml)
+
 # my-portfolio
 
 ## Build Setup
