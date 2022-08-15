@@ -1,0 +1,10 @@
+$theme-colors: (
+  'white': #fff,
+  'black': #000,
+  'info': #29abe2,
+  'success': #0e8428,
+  'warning': #ffcd00,
+  'danger': #ff3433,
+);
+
+@import '~/node_modules/bootstrap/scss/bootstrap.scss';
