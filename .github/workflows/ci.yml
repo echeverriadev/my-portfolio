@@ -78,7 +78,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
       - name: Install dependencies 👨🏻‍💻
-        run: yarn --no-audit --no-fund --no-optional
+        run: yarn
       - name: Build project 🗃
         run: yarn build
       - uses: actions/upload-artifact@v2.1.4
