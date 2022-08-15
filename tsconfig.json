@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
-    "target": "ES2018",
-    "module": "ESNext",
-    "moduleResolution": "Node",
+    "target": "es5",
+    "module": "es2015",
+    "moduleResolution": "node",
     "lib": ["ESNext", "ESNext.AsyncIterable", "DOM"],
     "esModuleInterop": true,
     "allowJs": true,
@@ -18,5 +18,6 @@
     "types": ["@nuxt/types", "@types/node"],
     "jsx": "preserve"
   },
+  "include": ["**/*.ts", "**/*.vue", "components/shared/catalog/catalog.js"],
   "exclude": ["node_modules", ".nuxt", "dist"]
 }
