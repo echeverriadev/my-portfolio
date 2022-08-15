@@ -10,11 +10,11 @@
 </template>
 
 <script lang="ts">
-import Profile from "@/components/shared/profile/index.vue";
+import Profile from '@/components/shared/profile/index.vue'
 
-export default({
+export default {
   components: {
-    Profile
+    Profile,
   },
-})
+}
 </script>

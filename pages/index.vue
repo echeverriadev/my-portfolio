@@ -3,13 +3,13 @@
 </template>
 
 <script lang="ts">
-import Landing from "@/components/landing/index.vue";
+import Landing from '@/components/landing/index.vue'
 
-export default({
+export default {
   name: 'Home',
   components: {
-    Landing
+    Landing,
   },
-  layout: 'default'
-})
+  layout: 'default',
+}
 </script>
